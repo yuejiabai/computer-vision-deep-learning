@@ -103,19 +103,19 @@ This experiment provides a classical machine-learning baseline for comparison wi
 
 #### Mean face
 
-![Mean Face](result/part2_mean_face.png)
+![Mean Face](result/part2/part2_mean_face.png)
 
 #### Eigenfaces
 
-![Eigenfaces](result/part2_eigenfaces.png)
+![Eigenfaces](result/part2/part2_eigenfaces.png)
 
 #### PCA compactness / explained variance
 
-![PCA Compactness](result/part2_compactness.png)
+![PCA Compactness](result/part2/part2_compactness.png)
 
 #### Example predictions
 
-![PCA Predictions](result/part2_predictions.png)
+![PCA Predictions](result/part2/part2_predictions.png)
 
 ### Skills demonstrated
 
@@ -171,15 +171,15 @@ The comparison demonstrates the benefit of learning hierarchical spatial feature
 
 ### Training loss
 
-![CNN Training Loss](result/part3_1_loss.png)
+![CNN Training Loss](result/part3/part3_1_loss.png)
 
 ### Training and test accuracy
 
-![CNN Accuracy](result/part3_1_accuracy.png)
+![CNN Accuracy](result/part3/part3_1_accuracy.png)
 
 ### Example predictions
 
-![CNN Predictions](result/part3_1_predictions.png)
+![CNN Predictions](result/part3/part3_1_predictions.png)
 
 ### Skills demonstrated
 
