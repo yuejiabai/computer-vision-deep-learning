@@ -1,116 +1,41 @@
-# Brain MRI Deep Learning with U-Net and VAE
+# Computer Vision and Deep Learning — Portfolio Components
 
-A deep learning project exploring brain MRI image analysis using
-U-Net and Variational Autoencoder (VAE) on the OASIS dataset.
+This package contains cleaned portfolio versions of three COMP3710 experiments.
 
-The project focuses on image segmentation, image reconstruction,
-and latent representation learning.
+## Eigenfaces and PCA
 
-## Project Task
+`eigenfaces_pca.ipynb`
 
-This project investigates two deep learning approaches for brain MRI analysis:
+Face recognition using the LFW dataset, PCA/SVD eigenfaces, dimensionality
+reduction, and Random Forest classification.
 
-- **U-Net** for brain MRI image segmentation
-- **Variational Autoencoder (VAE)** for image reconstruction and latent representation learning
+Verified test accuracy: **60.56%**
 
-The models were trained and evaluated using PyTorch.
+## CNN Face Classification
 
-## Dataset
+`face_cnn.ipynb`
 
-The project uses preprocessed brain MRI images from the
-**OASIS (Open Access Series of Imaging Studies)** dataset.
+A PyTorch convolutional neural network trained on the same LFW subset.
 
-## My Contribution
+Verified test accuracy: **91.61%**
 
-My work included:
+The CNN experiment provides a direct comparison with the PCA + Random Forest
+baseline and demonstrates the benefit of learned spatial features.
 
-- Training and evaluating the U-Net segmentation model
-- Training and analysing the Variational Autoencoder
-- Configuring experiments and model parameters
-- Evaluating segmentation performance using Dice score and training loss
-- Analysing VAE reconstruction quality and latent representations
-- Producing visualisations of model performance and experimental results
+## ResNet-18 on CIFAR-10
 
-## U-Net Image Segmentation
+`resnet18_cifar10.py`
 
-U-Net was used to perform segmentation on brain MRI images.
+A ResNet-18 implementation adapted for CIFAR-10 classification, including
+residual blocks, data augmentation, mixed-precision training, SGD with momentum,
+and OneCycleLR scheduling.
 
-The model was evaluated using:
+## Result Images
 
-- Training loss
-- Dice score
-- Segmentation visualisation
+- `results/part2/` — mean face, eigenfaces, PCA compactness, example predictions
+- `results/part3/` — CNN loss, accuracy, and example predictions
 
-### Segmentation Results
+## Project Context
 
-![U-Net Segmentation](result/p4_unet_segmentation.png)
-
-### Training Loss
-
-![U-Net Loss](result/p4_unet_loss.png)
-
-### Dice Score
-
-![U-Net Dice](result/p4_unet_dice.png)
-
-## Variational Autoencoder
-
-A Variational Autoencoder (VAE) was used to learn compact latent
-representations of brain MRI images and reconstruct input images.
-
-The model was evaluated using:
-
-- Reconstruction loss
-- Image reconstruction quality
-- Latent-space distribution
-- Latent manifold visualisation
-
-### Reconstruction
-
-![VAE Reconstruction](result/p4_vae_reconstruction.png)
-
-### Training Loss
-
-![VAE Loss](result/p4_vae_loss.png)
-
-### Latent Space
-
-![VAE Latent Space](result/p4_vae_latent_scatter.png)
-
-### Latent Manifold
-
-![VAE Manifold](result/p4_vae_manifold.png)
-
-## Technologies
-
-- Python
-- PyTorch
-- NumPy
-- Matplotlib
-- Deep Learning
-- Computer Vision
-
-## Key Skills
-
-- Deep learning model training and evaluation with PyTorch
-- Medical image analysis
-- Image segmentation using U-Net
-- Representation learning using Variational Autoencoders
-- Model evaluation using Dice score and training loss
-- Visualisation and interpretation of deep learning results
-
-## Project Structure
-
-```text
-deep-learning-unet-vae/
-├── README.md
-├── unet.py
-├── vae.py
-└── result/
-    ├── p4_unet_dice.png
-    ├── p4_unet_loss.png
-    ├── p4_unet_segmentation.png
-    ├── p4_vae_latent_scatter.png
-    ├── p4_vae_loss.png
-    ├── p4_vae_manifold.png
-    └── p4_vae_reconstruction.png
+These experiments were developed as part of **COMP3710** at
+**The University of Queensland**.
