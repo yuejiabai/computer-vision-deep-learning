@@ -1,239 +1,97 @@
-# COMP3710 Lab Demonstration 2 – Part 4: OASIS VAE
+# Brain MRI Deep Learning with U-Net and VAE
 
-## Overview
+A deep learning project exploring brain MRI image analysis using
+U-Net and Variational Autoencoder (VAE).
 
-This project implements the **Easy task in Part 4** of COMP3710 Lab Demonstration 2.
+The project focuses on image segmentation and latent representation
+learning using the OASIS brain MRI dataset.
 
-The aim is to train a **Variational Autoencoder (VAE)** on preprocessed OASIS brain MRI slices and visualise the learned latent manifold.
+## Project Overview
+
+This project implements two deep learning architectures:
+
+- **U-Net** for brain MRI image segmentation
+- **Variational Autoencoder (VAE)** for learning latent representations
+  of brain MRI images
+
+The models were implemented using PyTorch and evaluated through
+training loss, Dice score, reconstruction quality, and latent-space
+visualisation.
 
 ## Dataset
 
-The dataset is the preprocessed OASIS dataset provided on the UQ Rangpur cluster:
+The project uses preprocessed brain MRI images from the
+**OASIS (Open Access Series of Imaging Studies)** dataset.
 
-```text
-/home/groups/comp3710/OASIS/
-```
+## U-Net
 
-The VAE uses:
+U-Net was used to perform image segmentation on brain MRI images.
 
-```text
-keras_png_slices_train
-keras_png_slices_validate
-keras_png_slices_test
-```
+Model performance was evaluated using:
 
-The original images are grayscale `256 × 256` PNG slices.
+- Training loss
+- Dice score
+- Segmentation visualisation
 
-For this implementation, the images are resized to `128 × 128` before being passed to the network.
+### Segmentation Results
 
-Dataset sizes from the successful run:
+![U-Net Segmentation](p4_unet_segmentation.png)
 
-```text
-Training images:   9664
-Validation images: 1120
-Test images:       544
-```
+### Training Loss
 
-## Model
+![U-Net Loss](p4_unet_loss.png)
 
-The model is a convolutional Variational Autoencoder.
+### Dice Score
 
-### Encoder
+![U-Net Dice](p4_unet_dice.png)
 
-The encoder contains four stride-2 convolution layers:
+## Variational Autoencoder
 
-```text
-1 × 128 × 128
-→ 32 × 64 × 64
-→ 64 × 32 × 32
-→ 128 × 16 × 16
-→ 256 × 8 × 8
-```
+A Variational Autoencoder (VAE) was implemented to learn a compact
+latent representation of brain MRI images.
 
-The encoded feature map is flattened and mapped to:
+The model was evaluated using:
 
-```text
-mu
-logvar
-```
+- Reconstruction loss
+- Image reconstruction quality
+- Latent-space distribution
+- Latent manifold visualisation
 
-The latent dimension is:
+### Reconstruction
 
-```text
-2
-```
+![VAE Reconstruction](p4_vae_reconstruction.png)
 
-A 2D latent space was chosen so that the learned manifold can be visualised directly.
+### Training Loss
 
-### Reparameterisation
+![VAE Loss](p4_vae_loss.png)
 
-The latent vector is sampled using:
+### Latent Space
 
-```text
-z = mu + sigma × epsilon
-```
+![VAE Latent Space](p4_vae_latent_scatter.png)
 
-where:
+### Latent Manifold
 
-```text
-sigma = exp(0.5 × logvar)
-epsilon ~ N(0, I)
-```
+![VAE Manifold](p4_vae_manifold.png)
 
-This allows stochastic sampling while still allowing gradients to propagate through the model.
+## Technologies
 
-### Decoder
+- Python
+- PyTorch
+- NumPy
+- Matplotlib
+- Deep Learning
+- Computer Vision
 
-The decoder maps the latent vector back to the image space using transposed convolutions.
+## Skills Demonstrated
 
-The final layer uses a sigmoid activation so that reconstructed pixel values remain between `0` and `1`.
+- Deep learning model implementation with PyTorch
+- Medical image analysis
+- Image segmentation using U-Net
+- Representation learning using Variational Autoencoders
+- Model evaluation using Dice score and training loss
+- Visualisation of learned latent representations
 
-## Loss Function
+## Project Context
 
-The VAE objective contains two parts:
-
-```text
-Total Loss = Reconstruction Loss + beta × KL Divergence
-```
-
-This implementation uses:
-
-```text
-Reconstruction loss: Mean Squared Error
-beta:                0.0001
-```
-
-The reconstruction term encourages the decoded MRI image to match the original image.
-
-The KL-divergence term regularises the latent distribution toward a standard normal distribution.
-
-## Training
-
-The model was trained on an **NVIDIA A100-PCIE-40GB GPU** on the UQ Rangpur cluster.
-
-Successful run settings:
-
-```text
-Epochs:         30
-Batch size:     64
-Learning rate:  0.0003
-Latent dim:     2
-beta:           0.0001
-```
-
-Training used full-precision GPU computation for numerical stability.
-
-## Results
-
-Results from the successful Rangpur run:
-
-```text
-Best epoch:                 25
-Best validation loss:       0.00528561
-Test total loss:            0.00520910
-Test reconstruction loss:   0.00498404
-Test KL loss:               2.25064846
-Training time:              183.02 seconds
-```
-
-The training and validation losses decreased quickly and then stabilised, indicating that the model converged.
-
-The reconstructions preserve the overall brain structure, although they are smoother than the original MRI images. This is expected because the images are compressed into only two latent dimensions and the reconstruction objective uses mean squared error.
-
-The decoded 2D latent grid shows gradual changes between neighbouring generated brain images, demonstrating a continuous learned manifold.
-
-## Output Files
-
-The training script produces:
-
-```text
-p4_vae_best.pt
-p4_vae_results.txt
-p4_vae_loss.png
-p4_vae_reconstruction.png
-p4_vae_latent_scatter.png
-p4_vae_manifold.png
-```
-
-### Important visualisations
-
-`p4_vae_reconstruction.png`
-
-Shows original test MRI slices and their VAE reconstructions.
-
-`p4_vae_latent_scatter.png`
-
-Shows the distribution of test images in the 2D latent space.
-
-`p4_vae_manifold.png`
-
-Samples a grid of coordinates across the 2D latent space and decodes them into MRI images to visualise the learned manifold.
-
-`p4_vae_loss.png`
-
-Shows the training and validation loss across epochs.
-
-## Running on Rangpur
-
-Submit the GPU job with:
-
-```bash
-sbatch COMP3710_Lab2_Part4_VAE_FIXED_job.sh
-```
-
-Check the queue with:
-
-```bash
-squeue --me
-```
-
-After the job finishes, view the results with:
-
-```bash
-cat p4_vae_results.txt
-```
-
-The main implementation is:
-
-```text
-COMP3710_Lab2_Part4_VAE_FIXED.py
-```
-
-## What I Learned
-
-This task demonstrates the difference between a normal autoencoder and a VAE.
-
-A normal autoencoder maps an image to a single deterministic latent representation.
-
-A VAE instead learns a probability distribution in latent space using `mu` and `logvar`. The KL-divergence term makes the latent space smoother and more structured, which makes it possible to sample new points and generate meaningful outputs.
-
-The 2D latent manifold provides a direct visualisation of this idea.
-
-## AI Assistance
-
-AI tools were used to assist with code review, debugging, and explanation.
-
-During development, an earlier version of the VAE produced `NaN` losses because the latent statistics became numerically unstable. The issue was identified from the training output and the implementation was revised by:
-
-- removing mixed-precision training for the VAE,
-- reducing the input size to `128 × 128`,
-- lowering the learning rate,
-- clamping `logvar`,
-- adding gradient clipping,
-- and explicitly checking for non-finite loss values.
-
-The final model was then rerun and validated on Rangpur using the generated loss curves, reconstruction images, latent-space plots, manifold visualisation, and saved test results.
-
-## Files in This Repository
-
-Recommended repository contents:
-
-```text
-COMP3710_Lab2_Part4_VAE_FIXED.py
-COMP3710_Lab2_Part4_VAE_FIXED_job.sh
-README.md
-p4_vae_loss.png
-p4_vae_reconstruction.png
-p4_vae_latent_scatter.png
-p4_vae_manifold.png
-```
+This project was developed as part of COMP3710 at
+The University of Queensland.
