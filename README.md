@@ -43,15 +43,15 @@ The model was evaluated using:
 
 ### Segmentation Results
 
-![U-Net Segmentation](results/p4_unet_segmentation.png)
+![U-Net Segmentation](result/p4_unet_segmentation.png)
 
 ### Training Loss
 
-![U-Net Loss](results/p4_unet_loss.png)
+![U-Net Loss](result/p4_unet_loss.png)
 
 ### Dice Score
 
-![U-Net Dice](results/p4_unet_dice.png)
+![U-Net Dice](result/p4_unet_dice.png)
 
 ## Variational Autoencoder
 
@@ -67,19 +67,19 @@ The model was evaluated using:
 
 ### Reconstruction
 
-![VAE Reconstruction](results/p4_vae_reconstruction.png)
+![VAE Reconstruction](result/p4_vae_reconstruction.png)
 
 ### Training Loss
 
-![VAE Loss](results/p4_vae_loss.png)
+![VAE Loss](result/p4_vae_loss.png)
 
 ### Latent Space
 
-![VAE Latent Space](results/p4_vae_latent_scatter.png)
+![VAE Latent Space](result/p4_vae_latent_scatter.png)
 
 ### Latent Manifold
 
-![VAE Manifold](results/p4_vae_manifold.png)
+![VAE Manifold](result/p4_vae_manifold.png)
 
 ## Technologies
 
@@ -106,7 +106,7 @@ deep-learning-unet-vae/
 ├── README.md
 ├── unet.py
 ├── vae.py
-└── results/
+└── result/
     ├── p4_unet_dice.png
     ├── p4_unet_loss.png
     ├── p4_unet_segmentation.png
